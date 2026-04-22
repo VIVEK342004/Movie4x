@@ -1,116 +1,80 @@
-# 🎬 Movie4x - Premium Streaming UI
+# Movie4x - Full Stack Movie Streaming Application
 
-Movie4x is a modern and responsive movie streaming web interface built using HTML, CSS, and JavaScript. 
-It provides a clean and interactive UI for browsing movies, viewing details, and searching content dynamically.
+Movie4x is a premium movie streaming web application built with a modern dark-themed UI (similar to Netflix), now upgraded to a fully functional full-stack architecture using Node.js, Express, MongoDB, and TMDB API integration.
 
----
+## Features
 
-## 🚀 Features
+*   **Responsive Dark-Themed UI:** A beautiful, cinematic interface built with HTML, CSS, and Vanilla JavaScript.
+*   **User Authentication:** Secure Sign Up and Login functionality using JSON Web Tokens (JWT) and bcrypt password hashing.
+*   **Dynamic Data:** Fetches trending, popular, and search results dynamically from the backend (with fallback to mock data).
+*   **TMDB Integration:** Backend is set up to communicate with The Movie Database (TMDB) for real-world movie posters, trailers, and metadata.
+*   **Search & Filtering:** Real-time search implementation interacting with the REST API.
+*   **Interactive Modals:** Detailed movie views showcasing release dates, ratings, and descriptions.
 
-* 🎥 **Dynamic Movie Rendering**
-  Movies are loaded dynamically using JavaScript.
+## Tech Stack
 
-* 🔍 **Search Functionality**
-  Real-time filtering of movies based on user input.
+*   **Frontend:** HTML5, CSS3 (Vanilla), JavaScript
+*   **Backend:** Node.js, Express.js
+*   **Database:** MongoDB
+*   **Authentication:** JWT (JSON Web Tokens), bcryptjs
+*   **External APIs:** TMDB (The Movie Database)
 
-* 🪟 **Interactive Modal Popup**
-  View detailed movie information including cast, genre, rating, and description.
+## Local Development Setup
 
-* 🎨 **Modern UI/UX Design**
-  Inspired by popular streaming platforms with smooth animations and hover effects.
+### Prerequisites
+*   [Node.js](https://nodejs.org/) installed on your machine.
+*   A MongoDB database (local instance or MongoDB Atlas URI).
+*   A TMDB API Key (optional, but recommended for real data).
 
-* 📱 **Responsive Layout**
-  Works across desktop and mobile devices.
+### Installation Steps
 
----
+1.  **Install Dependencies:**
+    Open your terminal in the project root (`Movie9x`) and run:
+    ```bash
+    npm install
+    ```
 
-## 🛠️ Tech Stack
+2.  **Environment Configuration:**
+    Create a `.env` file in the root directory and add the following variables:
+    ```env
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/movie4x  # Or your MongoDB Atlas URI
+    JWT_SECRET=your_super_secret_jwt_key
+    TMDB_API_KEY=your_tmdb_api_key_here
+    ```
 
-* **HTML5** – Structure of the website
-* **CSS3** – Styling and layout (Flexbox, animations)
-* **JavaScript (ES6)** – Dynamic content and interactivity
-* **Lucide Icons** – Modern icon library
+3.  **Run the Server:**
+    ```bash
+    npm run dev
+    ```
+    This will start the backend server on `http://localhost:5000` and automatically serve the frontend files.
 
----
+4.  **Access the Application:**
+    Open your browser and navigate to `http://localhost:5000`.
 
-## 📂 Project Structure
+## Deployment Instructions
 
-```
-Movie4x/
-│── index.html      # Main HTML file
-│── style.css       # Styling file
-│── app.js          # Main JavaScript logic
-│── movies.js       # Movie data
-│── images/         # Posters and banners
-```
+To deploy this full-stack application to the internet, follow these general steps:
 
----
+### 1. Database Hosting (MongoDB Atlas)
+If you haven't already, host your MongoDB database on MongoDB Atlas. Get your connection string (URI) to use in the deployment environment variables.
 
-## ⚙️ Installation & Setup
+### 2. Backend Deployment (Render / Railway / Heroku)
+*   Create an account on Render or Railway.
+*   Connect your GitHub repository containing this code.
+*   Set the **Build Command** to `npm install`.
+*   Set the **Start Command** to `npm start`.
+*   Crucially, add the following Environment Variables in the platform's dashboard:
+    *   `MONGO_URI`
+    *   `JWT_SECRET`
+    *   `TMDB_API_KEY`
+*   Deploy! The platform will provide you with a live URL (e.g., `https://movie4x-api.onrender.com`).
 
-1. Clone the repository:
+### 3. Frontend Configuration (Optional)
+Currently, the backend serves the frontend statically (`app.use(express.static(__dirname));`). This means you only need to deploy the backend, and it will serve the entire website perfectly.
+If you wish to separate them (e.g., frontend on Vercel, backend on Render):
+1.  Update `API_URL` in `app.js` and `login.html` from `http://localhost:5000/api/...` to your live backend URL.
+2.  Deploy the root directory (excluding Node backend files) to Vercel or Netlify.
 
-```bash
-git clone https://github.com/your-username/Movie4x.git
-```
-
-2. Navigate to the project folder:
-
-```bash
-cd Movie4x
-```
-
-3. Open in browser:
-
-```bash
-start index.html
-```
-
----
-
-## 💡 Usage
-
-* Browse trending, popular, and top-rated movies
-* Use the search bar to find movies
-* Click on a movie card to view detailed information
-
----
-
-## 📸 Screenshots
-
-*Add screenshots of your project here*
-
----
-
-## 🔮 Future Improvements
-
-* 🎬 Add backend integration (API-based movie data)
-* 👤 User authentication system
-* ❤️ Watchlist / Favorites feature
-* 🌐 Deploy live using GitHub Pages
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-Feel free to fork this repo and submit a pull request.
-
----
-
-## 📄 License
-
-This project is open-source and available under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Vivek Kumar**
-📧 [vivekkumar04034@gmail.com](mailto:vivekkumar04034@gmail.com)
-🌐 GitHub: https://github.com/VIVEK342004
-
-
----
-
-⭐ If you like this project, don’t forget to star the repository!
+## Authors
+Developed as a fully functional streaming template.
