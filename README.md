@@ -106,7 +106,7 @@ This project is open-source and available under the MIT License.
 
 ## 👨‍💻 Author
 ** Vivek Kumar **
-📧 [your-email@example.com](vivekkumar04034@gmail.com)
+📧 [vivekkumar04034@gmail.com](vivekkumar04034@gmai.com)
 🌐 GitHub: https://github.com/VIVEK342004
 
 ---
