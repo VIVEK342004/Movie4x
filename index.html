@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4x | Premium Streaming</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">Movie<span>4x</span></div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">TV Shows</a></li>
+            <li><a href="#">Categories</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search movies...">
+            </div>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=User&background=E50914&color=fff" alt="User">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Banner -->
+        <section class="hero" id="heroBanner">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge">Trending Now</div>
+                <h1 class="hero-title" id="heroTitle">Interstellar Horizon</h1>
+                <div class="hero-meta">
+                    <span class="match">98% Match</span>
+                    <span class="year">2026</span>
+                    <span class="age">16+</span>
+                    <span class="duration">2h 14m</span>
+                    <span class="hd">4K UHD</span>
+                </div>
+                <p class="hero-desc" id="heroDesc">A team of astronauts travels through a wormhole in search of a new habitable planet for humanity. A visually stunning and emotional journey.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i data-lucide="play" class="btn-icon"></i> Watch Now</button>
+                    <button class="btn btn-secondary"><i data-lucide="info" class="btn-icon"></i> More Info</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movie Rows -->
+        <section class="movie-section">
+            <h2 class="section-title">Trending Movies</h2>
+            <div class="movie-row" id="trendingMovies">
+                <!-- Movie cards injected by JS -->
+            </div>
+        </section>
+
+        <section class="movie-section">
+            <h2 class="section-title">Popular Releases</h2>
+            <div class="movie-row" id="popularMovies">
+                <!-- Movie cards injected by JS -->
+            </div>
+        </section>
+
+        <section class="movie-section">
+            <h2 class="section-title">Top Rated</h2>
+            <div class="movie-row" id="topRatedMovies">
+                <!-- Movie cards injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="modal-banner" id="modalBanner">
+                <div class="modal-banner-overlay"></div>
+                <button class="btn btn-primary modal-play-btn"><i data-lucide="play"></i> Watch Trailer</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-main-info">
+                    <h2 id="modalTitle">Title</h2>
+                    <div class="modal-meta">
+                        <span id="modalRating" class="rating"><i data-lucide="star"></i> 8.5</span>
+                        <span id="modalYear">2026</span>
+                        <span id="modalGenre">Sci-Fi</span>
+                    </div>
+                    <p id="modalDesc">Description goes here.</p>
+                </div>
+                <div class="modal-side-info">
+                    <p><strong>Cast:</strong> <span id="modalCast">Actor 1, Actor 2</span></p>
+                    <p><strong>Director:</strong> <span id="modalDirector">Director Name</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Movie<span>4x</span></div>
+            <p>&copy; 2026 Movie4x Streaming. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="movies.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
