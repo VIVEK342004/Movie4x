@@ -78,7 +78,7 @@ const movies = [
     year: 1972,
     rating: "9.2",
     description: "The aging patriarch of an organized crime dynasty in postwar New York City transfers control of his clandestine empire to his reluctant youngest son.",
-    poster: "https://via.placeholder.com/200x300/1A1C23/FFFFFF?text=The+Godfather",
+    poster: "images/godfather.png",
     backdrop: "images/hero_banner.png",
     cast: ["Marlon Brando", "Al Pacino", "James Caan"],
     director: "Francis Ford Coppola"
@@ -90,7 +90,7 @@ const movies = [
     year: 1942,
     rating: "8.5",
     description: "A cynical expatriate American cafe owner struggles to decide whether or not to help his former lover and her fugitive husband escape the Nazis in French Morocco.",
-    poster: "https://via.placeholder.com/200x300/1A1C23/FFFFFF?text=Casablanca",
+    poster: "images/casablanca.png",
     backdrop: "images/hero_banner.png",
     cast: ["Humphrey Bogart", "Ingrid Bergman"],
     director: "Michael Curtiz"
