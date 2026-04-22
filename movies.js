@@ -70,9 +70,48 @@ const movies = [
     backdrop: "images/hero_banner.png",
     cast: ["Oscar Isaac", "Alicia Vikander"],
     director: "Alex Garland"
+  },
+  {
+    id: 7,
+    title: "The Godfather",
+    genre: "Crime",
+    year: 1972,
+    rating: "9.2",
+    description: "The aging patriarch of an organized crime dynasty in postwar New York City transfers control of his clandestine empire to his reluctant youngest son.",
+    poster: "https://via.placeholder.com/200x300/1A1C23/FFFFFF?text=The+Godfather",
+    backdrop: "images/hero_banner.png",
+    cast: ["Marlon Brando", "Al Pacino", "James Caan"],
+    director: "Francis Ford Coppola"
+  },
+  {
+    id: 8,
+    title: "Casablanca",
+    genre: "Romance",
+    year: 1942,
+    rating: "8.5",
+    description: "A cynical expatriate American cafe owner struggles to decide whether or not to help his former lover and her fugitive husband escape the Nazis in French Morocco.",
+    poster: "https://via.placeholder.com/200x300/1A1C23/FFFFFF?text=Casablanca",
+    backdrop: "images/hero_banner.png",
+    cast: ["Humphrey Bogart", "Ingrid Bergman"],
+    director: "Michael Curtiz"
+  },
+  {
+    id: 9,
+    title: "Neon Horizon",
+    genre: "Sci-Fi",
+    year: 2027,
+    rating: "8.6",
+    description: "A visually striking look into a neon-drenched future where memories are currency.",
+    poster: "images/poster1.png",
+    backdrop: "images/hero_banner.png",
+    cast: ["Ana de Armas", "Dev Patel"],
+    director: "Bong Joon-ho"
   }
 ];
 
-const trendingMovies = [movies[0], movies[1], movies[3]];
-const popularMovies = [movies[2], movies[4], movies[5]];
-const topRatedMovies = [movies[0], movies[1], movies[5]];
+// Mocking backend processes to categorize movies
+const trendingMovies = movies.filter(m => m.rating >= 8.5 && m.year >= 2025);
+const popularMovies = movies.filter(m => m.id === 2 || m.id === 4 || m.id === 5);
+const topRatedMovies = [...movies].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 3);
+const latestMovies = movies.filter(m => m.year >= 2026);
+const oldMovies = movies.filter(m => m.year < 2000);

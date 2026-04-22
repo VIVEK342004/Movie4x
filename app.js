@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMovies('trendingMovies', trendingMovies);
     renderMovies('popularMovies', popularMovies);
     renderMovies('topRatedMovies', topRatedMovies);
+    renderMovies('latestMovies', latestMovies);
+    renderMovies('oldMovies', oldMovies);
 
     // Modal Logic
     const modal = document.getElementById('movieModal');

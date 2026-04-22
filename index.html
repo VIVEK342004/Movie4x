@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
@@ -44,7 +46,8 @@
                     <span class="duration">2h 14m</span>
                     <span class="hd">4K UHD</span>
                 </div>
-                <p class="hero-desc" id="heroDesc">A team of astronauts travels through a wormhole in search of a new habitable planet for humanity. A visually stunning and emotional journey.</p>
+                <p class="hero-desc" id="heroDesc">A team of astronauts travels through a wormhole in search of a new
+                    habitable planet for humanity. A visually stunning and emotional journey.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary"><i data-lucide="play" class="btn-icon"></i> Watch Now</button>
                     <button class="btn btn-secondary"><i data-lucide="info" class="btn-icon"></i> More Info</button>
@@ -70,6 +73,20 @@
         <section class="movie-section">
             <h2 class="section-title">Top Rated</h2>
             <div class="movie-row" id="topRatedMovies">
+                <!-- Movie cards injected by JS -->
+            </div>
+        </section>
+
+        <section class="movie-section">
+            <h2 class="section-title">Latest Movies</h2>
+            <div class="movie-row" id="latestMovies">
+                <!-- Movie cards injected by JS -->
+            </div>
+        </section>
+
+        <section class="movie-section">
+            <h2 class="section-title">Old Movies</h2>
+            <div class="movie-row" id="oldMovies">
                 <!-- Movie cards injected by JS -->
             </div>
         </section>
@@ -112,4 +129,5 @@
     <script src="movies.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
