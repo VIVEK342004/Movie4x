@@ -105,9 +105,11 @@ This project is open-source and available under the MIT License.
 ---
 
 ## 👨‍💻 Author
-** Vivek Kumar **
-📧 [vivekkumar04034@gmail.com](vivekkumar04034@gmai.com)
+
+**Vivek Kumar**
+📧 [vivekkumar04034@gmail.com](mailto:vivekkumar04034@gmail.com)
 🌐 GitHub: https://github.com/VIVEK342004
+
 
 ---
 
