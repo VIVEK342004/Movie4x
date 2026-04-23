@@ -7,6 +7,7 @@ Movie4x is a premium movie streaming web application built with a modern dark-th
 *   **Responsive Dark-Themed UI:** A beautiful, cinematic interface built with HTML, CSS, and Vanilla JavaScript.
 *   **User Authentication:** Secure Sign Up and Login functionality using JSON Web Tokens (JWT) and bcrypt password hashing.
 *   **Dynamic Data:** Fetches trending, popular, and search results dynamically from the backend (with fallback to mock data).
+*   **Real Cinematic Assets:** Uses high-quality, authentic movie posters and backdrops (e.g., Interstellar, Dune, Blade Runner 2049) to provide an immersive streaming experience, replacing previous placeholder/AI-generated images.
 *   **TMDB Integration:** Backend is set up to communicate with The Movie Database (TMDB) for real-world movie posters, trailers, and metadata.
 *   **Search & Filtering:** Real-time search implementation interacting with the REST API.
 *   **Interactive Modals:** Detailed movie views showcasing release dates, ratings, and descriptions.

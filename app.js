@@ -42,6 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const API_URL = 'http://localhost:5000/api/movies';
 
+    // Helper: Convert movie name to a valid file name
+    const formatImageName = (name) => {
+        return name
+            .toLowerCase()
+            .replace(/[:']/g, '') // Remove specific special characters
+            .replace(/[^a-z0-9\s-]/g, '') // Keep alphanumeric, spaces, and dashes
+            .trim()
+            .replace(/\s+/g, '_'); // Replace spaces with underscores
+    };
+
     // Fetch Movies Function
     const fetchMovies = async (endpoint) => {
         try {
@@ -53,17 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Failed to fetch movies from backend, falling back to local data.", error);
             // Fallback for demo purposes if backend isn't running
             if (typeof movies !== 'undefined') {
-                if (endpoint === 'trending') return trendingMovies;
-                if (endpoint === 'popular') return popularMovies;
-                if (endpoint === 'search?query=') return [];
+                if (endpoint === 'action') return actionMovies;
+                if (endpoint === 'comedy') return comedyMovies;
+                if (endpoint === 'horror') return horrorMovies;
+                if (endpoint === 'animation') return animationMovies;
+                if (endpoint.startsWith('search?query=')) return [];
             }
             return [];
         }
     };
 
+    // TMDB Poster Cache for performance optimization
+    const posterCache = {};
+
     // Render Movie Cards
     const renderMovies = (containerId, movieArray) => {
         const container = document.getElementById(containerId);
+        if (!container) return; // Prevent error if row missing
         container.innerHTML = ''; // Clear container
 
         if(!movieArray || movieArray.length === 0) {
@@ -75,14 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.classList.add('movie-card');
             
-            // Handle both TMDB API format and Local Mock Format
             const title = movie.title || movie.name;
-            const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movie.poster;
             const year = movie.release_date ? movie.release_date.split('-')[0] : movie.year;
             const rating = movie.vote_average ? movie.vote_average.toFixed(1) : movie.rating;
 
+            // Generate local image path from movie name
+            const localImagePath = `images/${formatImageName(title)}.jpg`;
+
+            // Base fallback poster
+            let initialPoster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : localImagePath;
+            
+            // Generate a unique ID for the image to update it asynchronously
+            const imgId = `poster-${Math.random().toString(36).substr(2, 9)}`;
+
             card.innerHTML = `
-                <img src="${posterPath}" alt="${title}" class="movie-poster" onerror="this.src='https://via.placeholder.com/200x300/1A1C23/FFFFFF?text=No+Poster'">
+                <img id="${imgId}" src="${initialPoster}" alt="${title}" class="movie-poster" onerror="this.src='images/interstellar.jpg'">
                 <div class="movie-info">
                     <h3>${title}</h3>
                     <div class="movie-info-meta">
@@ -92,26 +115,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Add click event to open modal
             card.addEventListener('click', () => openModal(movie));
             container.appendChild(card);
+
+            // Fetch dynamic poster using our Backend Proxy to bypass firewalls
+            if (!movie.poster_path) {
+                if (posterCache[title]) {
+                    // Use cached URL
+                    const img = document.getElementById(imgId);
+                    if(img) img.src = posterCache[title];
+                } else {
+                    // Fetch from Node.js Backend Proxy (bypasses SSL errors)
+                    fetch(`http://localhost:5000/api/movies/poster-image/${encodeURIComponent(title)}`)
+                        .then(res => {
+                            if (!res.ok) throw new Error('Proxy request failed');
+                            return res.blob();
+                        })
+                        .then(blob => {
+                            const objectURL = URL.createObjectURL(blob);
+                            posterCache[title] = objectURL;
+                            const img = document.getElementById(imgId);
+                            if(img) img.src = objectURL;
+                        })
+                        .catch(err => {
+                            console.warn(`Backend Proxy fetch failed for ${title}. Using local fallback.`, err);
+                            posterCache[title] = initialPoster; // Cache the fallback to prevent retries
+                        });
+                }
+            }
         });
         
         lucide.createIcons();
     };
 
-    // Initialize Rows asynchronously
+    // Initialize Rows
     const initApp = async () => {
-        const trending = await fetchMovies('trending');
-        renderMovies('trendingMovies', trending);
-
-        const popular = await fetchMovies('popular');
-        renderMovies('popularMovies', popular);
-
-        // For demo, we just duplicate for the others since TMDB endpoints can be added later
-        renderMovies('topRatedMovies', popular.reverse());
-        renderMovies('latestMovies', trending.slice(0, 5));
-        renderMovies('oldMovies', trending.slice(5, 10));
+        renderMovies('actionMovies', await fetchMovies('action'));
+        renderMovies('comedyMovies', await fetchMovies('comedy'));
+        renderMovies('horrorMovies', await fetchMovies('horror'));
+        renderMovies('animationMovies', await fetchMovies('animation'));
     };
 
     initApp();
@@ -120,12 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('movieModal');
     const closeModalBtn = document.getElementById('closeModal');
 
+    let currentModalMovie = null;
     const openModal = (movie) => {
+        currentModalMovie = movie;
         const title = movie.title || movie.name;
         const rating = movie.vote_average ? movie.vote_average.toFixed(1) : movie.rating;
         const year = movie.release_date ? movie.release_date.split('-')[0] : movie.year;
         const desc = movie.overview || movie.description;
-        const backdropPath = movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : movie.backdrop;
+        
+        // Generate local backdrop path from movie name
+        const localBackdropPath = `images/${formatImageName(title)}_backdrop.jpg`;
+        const backdropPath = movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : localBackdropPath;
 
         document.getElementById('modalTitle').textContent = title;
         document.getElementById('modalRating').innerHTML = `<i data-lucide="star"></i> ${rating}`;
@@ -133,11 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modalGenre').textContent = movie.genre || 'Various';
         document.getElementById('modalDesc').textContent = desc || 'No description available.';
         
-        // TMDB doesn't return cast/director in basic search/trending, so we mock it if missing
         document.getElementById('modalCast').textContent = movie.cast ? movie.cast.join(', ') : 'Not Available';
         document.getElementById('modalDirector').textContent = movie.director || 'Not Available';
         
-        // Set Banner Image
         const banner = document.getElementById('modalBanner');
         banner.style.backgroundImage = `url('${backdropPath}')`;
 
@@ -155,25 +200,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Search functionality integrating with backend
+    // Search functionality
     const searchInput = document.getElementById('searchInput');
     let searchTimeout;
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.trim();
-        clearTimeout(searchTimeout);
-        
-        searchTimeout = setTimeout(async () => {
-            if (term) {
-                const results = await fetchMovies(`search?query=${encodeURIComponent(term)}`);
-                renderMovies('trendingMovies', results);
-                document.querySelector('.hero').style.display = 'none'; // hide hero when searching
-                document.querySelectorAll('.movie-section').forEach((sec, idx) => {
-                    if (idx > 0) sec.style.display = 'none'; // hide other rows
-                });
-                document.querySelector('.section-title').textContent = `Search Results for "${term}"`;
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.trim();
+            clearTimeout(searchTimeout);
+            
+            searchTimeout = setTimeout(async () => {
+                if (term) {
+                    const results = await fetchMovies(`search?query=${encodeURIComponent(term)}`);
+                    renderMovies('actionMovies', results);
+                    const hero = document.querySelector('.hero');
+                    if(hero) hero.style.display = 'none';
+                    document.querySelectorAll('.movie-section').forEach((sec, idx) => {
+                        if (idx > 0) sec.style.display = 'none';
+                    });
+                    document.querySelector('.section-title').textContent = `Search Results for "${term}"`;
+                } else {
+                    window.location.reload();
+                }
+            }, 500);
+        });
+    }
+
+    // Genre Filter Logic
+    const genreFilter = document.getElementById('genreFilter');
+    if (genreFilter) {
+        genreFilter.addEventListener('change', (e) => {
+            const val = e.target.value;
+            const sections = {
+                'Action': document.getElementById('actionMovies').parentElement,
+                'Comedy': document.getElementById('comedyMovies').parentElement,
+                'Horror': document.getElementById('horrorMovies').parentElement,
+                'Animation': document.getElementById('animationMovies').parentElement
+            };
+            
+            const hero = document.querySelector('.hero');
+            if (val === 'all') {
+                if(hero) hero.style.display = 'flex';
+                Object.values(sections).forEach(sec => sec.style.display = 'block');
             } else {
-                window.location.reload(); // reset back to normal
+                if(hero) hero.style.display = 'none';
+                Object.entries(sections).forEach(([key, sec]) => {
+                    sec.style.display = (key === val) ? 'block' : 'none';
+                });
             }
-        }, 500); // debounce
-    });
+        });
+    }
+
+    // Watchlist Logic
+    const watchlistBtn = document.getElementById('watchlistBtn');
+    if (watchlistBtn) {
+        watchlistBtn.addEventListener('click', async () => {
+            if (!token || !currentModalMovie) {
+                alert('Please sign in to add to your watchlist.');
+                window.location.href = 'login.html';
+                return;
+            }
+            try {
+                const res = await fetch(`http://localhost:5000/api/auth/watchlist`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ movie: currentModalMovie })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    watchlistBtn.innerHTML = `<i data-lucide="check"></i> Added`;
+                    watchlistBtn.style.backgroundColor = '#46D369';
+                    lucide.createIcons();
+                } else {
+                    alert(data.message || 'Failed to add to watchlist.');
+                }
+            } catch(e) {
+                console.error(e);
+                watchlistBtn.innerHTML = `<i data-lucide="check"></i> Added (Demo)`;
+                watchlistBtn.style.backgroundColor = '#46D369';
+                lucide.createIcons();
+            }
+        });
+    }
 });

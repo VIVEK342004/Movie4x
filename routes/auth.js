@@ -86,4 +86,45 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Middleware to check auth
+const auth = (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
+  try {
+    const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Token is not valid' });
+  }
+};
+
+// @route   POST /api/auth/watchlist
+// @desc    Add a movie to watchlist
+router.post('/watchlist', auth, async (req, res) => {
+  try {
+    const { movie } = req.body;
+    if (!movie || !movie.id) {
+      return res.status(400).json({ message: 'Movie ID required' });
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.watchlist.includes(movie.id.toString())) {
+      return res.status(400).json({ message: 'Movie already in watchlist' });
+    }
+
+    user.watchlist.push(movie.id.toString());
+    await user.save();
+
+    res.json({ message: 'Added to watchlist', watchlist: user.watchlist });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
