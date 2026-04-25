@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4x | Login & Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html">Movie<span>4x</span></a></div>
+    </nav>
+
+    <div class="auth-container">
+        <!-- Login Box -->
+        <div class="auth-box" id="loginBox">
+            <h2 style="margin-bottom: 20px; font-size: 28px;">Welcome Back</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Sign in to access your watchlist.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <div id="loginError" style="color: var(--primary-color); margin-bottom: 15px; font-size: 14px; display: none;"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Login</button>
+            </form>
+            <p style="margin-top: 20px; text-align: center; color: var(--text-muted);">
+                Don't have an account? <a href="#" onclick="toggleAuth()" style="color: white; font-weight: 500;">Sign up</a>
+            </p>
+        </div>
+
+        <!-- Signup Box -->
+        <div class="auth-box" id="signupBox" style="display: none;">
+            <h2 style="margin-bottom: 20px; font-size: 28px;">Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="signupUsername" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signupEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" class="form-control" required>
+                </div>
+                <div id="signupError" style="color: var(--primary-color); margin-bottom: 15px; font-size: 14px; display: none;"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Sign Up</button>
+            </form>
+            <p style="margin-top: 20px; text-align: center; color: var(--text-muted);">
+                Already have an account? <a href="#" onclick="toggleAuth()" style="color: white; font-weight: 500;">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function toggleAuth() {
+            const loginBox = document.getElementById('loginBox');
+            const signupBox = document.getElementById('signupBox');
+            if (loginBox.style.display === 'none') {
+                loginBox.style.display = 'block';
+                signupBox.style.display = 'none';
+            } else {
+                loginBox.style.display = 'none';
+                signupBox.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

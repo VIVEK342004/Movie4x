@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4x | Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="padding-top: 80px;">
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html">Movie<span>4x</span></a></div>
+        <div class="nav-actions">
+            <a href="index.html" class="btn btn-outline">Back</a>
+        </div>
+    </nav>
+
+    <div class="movie-details-container" style="max-width: 1200px; margin: 40px auto; padding: 0 5%; display: flex; gap: 40px; flex-wrap: wrap;">
+        <img id="detailPoster" style="width: 300px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" src="" alt="Poster">
+        <div style="flex: 1; min-width: 300px;">
+            <h1 id="detailTitle" style="font-size: 40px; margin-bottom: 10px;">Loading...</h1>
+            <p style="color: #f5c518; font-size: 18px; margin-bottom: 20px;">⭐ <span id="detailRating">0.0</span>/10</p>
+            <p id="detailDesc" style="color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 30px;"></p>
+            
+            <button id="detailWatchlistBtn" class="btn btn-primary" style="margin-bottom: 30px;">Add to Watchlist</button>
+
+            <h3 style="margin-bottom: 15px;">Trailer</h3>
+            <div id="trailerContainer" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                <iframe id="detailTrailer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadMovieDetailsPage);
+    </script>
+</body>
+</html>

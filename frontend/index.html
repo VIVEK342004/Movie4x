@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4x | Discover Movies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html">Movie<span>4x</span></a></div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#trending">Trending</a>
+            <a href="profile.html" id="profileLink" style="display: none;">My Profile</a>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search movies...">
+                <div id="searchResults"></div>
+            </div>
+            <div id="authButtons">
+                <a href="login.html" class="btn btn-outline">Login</a>
+            </div>
+            <button id="logoutBtn" class="btn btn-primary" style="display: none;">Logout</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">Loading...</h1>
+            <p class="hero-desc" id="heroDesc">Loading description...</p>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn btn-primary" id="heroPlayBtn">Watch Trailer</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="filters" style="margin-top: 40px;">
+        <select id="genreFilter" class="filter-select">
+            <option value="">All Genres</option>
+            <option value="28">Action</option>
+            <option value="35">Comedy</option>
+            <option value="18">Drama</option>
+            <option value="27">Horror</option>
+            <option value="878">Sci-Fi</option>
+        </select>
+        <select id="yearFilter" class="filter-select">
+            <option value="">All Years</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+        </select>
+        <select id="ratingFilter" class="filter-select">
+            <option value="">Any Rating</option>
+            <option value="8">8+ Stars</option>
+            <option value="7">7+ Stars</option>
+            <option value="6">6+ Stars</option>
+        </select>
+    </div>
+
+    <h2 class="section-title" id="trending">Trending Now</h2>
+    <div class="movie-grid" id="trendingGrid"></div>
+
+    <h2 class="section-title">Popular Movies</h2>
+    <div class="movie-grid" id="popularGrid"></div>
+
+    <h2 class="section-title">Top Rated</h2>
+    <div class="movie-grid" id="topRatedGrid"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

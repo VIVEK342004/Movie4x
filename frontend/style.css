@@ -1,0 +1,343 @@
+:root {
+    --bg-color: #0d0d12;
+    --card-bg: rgba(25, 25, 35, 0.6);
+    --primary-color: #e50914;
+    --primary-hover: #f40612;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --nav-bg: rgba(13, 13, 18, 0.85);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Glassmorphism Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--nav-bg);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.nav-brand a {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.nav-brand span {
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 8px;
+    outline: none;
+    width: 200px;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Hero Section */
+.hero {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    background: linear-gradient(to right, rgba(13,13,18,1) 10%, rgba(13,13,18,0) 80%), url('https://image.tmdb.org/t/p/original/mRmREZXdZgQVxwAEJ1M55XyAmns.jpg') no-repeat center center/cover;
+    margin-top: 70px;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.hero-desc {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+/* Sections */
+.section-title {
+    margin: 40px 5% 20px;
+    font-size: 24px;
+    font-weight: 600;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 10px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 5%;
+    margin-bottom: 40px;
+}
+
+.movie-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.movie-poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 15px;
+}
+
+.movie-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #f5c518;
+    font-size: 14px;
+}
+
+.watchlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+}
+
+.watchlist-btn:hover {
+    background: var(--primary-color);
+}
+
+.watchlist-btn.added {
+    color: var(--primary-color);
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 15px;
+    padding: 0 5%;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: white;
+    border: 1px solid var(--glass-border);
+    outline: none;
+}
+
+/* Auth Forms */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-box {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(20px);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+}
+
+/* Search Results Container */
+#searchResults {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 5%;
+    background: var(--card-bg);
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+}
+
+.search-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--glass-border);
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.search-item img {
+    width: 40px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.search-item-info h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.search-item-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+}

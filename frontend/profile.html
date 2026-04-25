@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4x | My Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="padding-top: 100px;">
+    <nav class="navbar">
+        <div class="nav-brand"><a href="index.html">Movie<span>4x</span></a></div>
+        <div class="nav-actions">
+            <a href="index.html" class="btn btn-outline">Back to Home</a>
+        </div>
+    </nav>
+
+    <main style="padding: 20px 5%; max-width: 1200px; margin: 0 auto;">
+        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+            <!-- Profile Sidebar -->
+            <div style="flex: 1; min-width: 300px; background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--glass-border); text-align: center;">
+                <img id="profileImg" src="https://ui-avatars.com/api/?name=User&background=E50914&color=fff" alt="User" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; border: 3px solid var(--primary-color);">
+                <h2 id="profileUsername" style="margin-bottom: 5px;">Loading...</h2>
+                <p id="profileEmail" style="color: var(--text-muted); margin-bottom: 20px;">loading...</p>
+                
+                <button id="profileLogoutBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">Logout</button>
+            </div>
+
+            <!-- Watchlist Panel -->
+            <div style="flex: 3; min-width: 300px;">
+                <h2 style="font-size: 24px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">My Watchlist</h2>
+                <div class="movie-grid" id="watchlistGrid" style="padding: 0;">
+                    <!-- Watchlist items will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+            loadWatchlist();
+        });
+    </script>
+</body>
+</html>
